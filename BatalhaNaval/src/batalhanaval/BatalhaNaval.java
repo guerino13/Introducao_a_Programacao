@@ -14,7 +14,13 @@ public class BatalhaNaval {
       
       
       while(rodada <= 40){
-          
+          System.out.println("======= MENU =======\n" +
+                "1- Posicionar navios automaticamente\n" +
+                "2- Atacar oponente\n" +
+                "3- Ver tabuleiro de ataques\n" +
+                "4- Ver rodadas restantes\n" +
+                "5 - Sair do jogo\n" +
+                "====================");
           
           
           rodada++;
