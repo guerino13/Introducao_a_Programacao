@@ -57,7 +57,7 @@ public class BatalhaNaval {
                   break;
                   //Caso 2 é a ação de ataque do jogador.
               case 3:   
-                  imprimirTabuleiro(defesaJog2);
+                  imprimirTabuleiro(ataqueJog1);
                   //Cria o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
                   break;
                   
@@ -108,7 +108,7 @@ public class BatalhaNaval {
                   break;
                   //Caso 2 é a ação de ataque do jogador.
               case 3:    
-                  imprimirTabuleiro(defesaJog1);
+                  imprimirTabuleiro(ataqueJog2);
                   //Criar o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
                   break;
                   
@@ -164,19 +164,20 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha + j][posColuna] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else{
-                 tabuleiro[posLinha + j][posColuna] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                    }
                    
              }
                 
@@ -188,19 +189,20 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha][posColuna + j] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else{
-                 tabuleiro[posLinha][posColuna + j] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                    }
                    
              }
                
@@ -222,19 +224,20 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha + j][posColuna] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else{
-                 tabuleiro[posLinha + j][posColuna] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                    }
                    
              }
                 
@@ -246,19 +249,20 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha][posColuna + j] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else{
-                 tabuleiro[posLinha][posColuna + j] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                    }
                    
              }
                
@@ -278,21 +282,24 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha + j][posColuna] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha - j][posColuna] = '#';
-                
-                }else{
-                 tabuleiro[posLinha + j][posColuna] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha - j][posColuna] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha + j][posColuna] = '#';
+                            break;
+                    }
                    
-             }  
+             }
+                
+                
            }else
                 {for(int j = 0; j < 3; j++) {
                 if(tabuleiro[posLinha][posColuna] != '~'){
@@ -300,19 +307,20 @@ public class BatalhaNaval {
                     break;
                 }    
                     
-                if(posLinha == 0){
-                tabuleiro[posLinha][posColuna + j] = '#';
-                
-                }else if(posLinha == 7){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else if(posLinha == 6){
-                tabuleiro[posLinha][posColuna - j] = '#';
-                
-                }else{
-                 tabuleiro[posLinha][posColuna + j] = '#';  
-                 
-                }
+                    switch (posLinha) {
+                        case 0:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                        case 7:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        case 6:
+                            tabuleiro[posLinha][posColuna - j] = '#';
+                            break;
+                        default:
+                            tabuleiro[posLinha][posColuna + j] = '#';
+                            break;
+                    }
                    
              }
                
@@ -338,7 +346,7 @@ public class BatalhaNaval {
             for (int j = 0; j < 8; j++) {
                 if (tabuleiroDefesa[i][j] == '#') {
                     // Se encontrar qualquer parte de navio não atingida, o jogo não acabou
-                    return true;
+                    return false;
                 }
             }
         }
