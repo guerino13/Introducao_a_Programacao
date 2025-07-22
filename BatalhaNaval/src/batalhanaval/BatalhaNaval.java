@@ -12,12 +12,13 @@ public class BatalhaNaval {
       char [][]ataqueJog2  = new char [8][8];
       char [][]defesaJog2  = new char [8][8];
       int op = 0;
-      int ataque;
+      int ataqueLinha, ataqueColuna;
       int rodada = 1;
       
       
       
-        while(rodada <= 40){
+      
+        while(rodada < 40){
          
             System.out.println("Vez do jogador 1. Escolha sua proxima acao.\n");
             System.out.println("======= MENU =======\n" +
@@ -39,15 +40,25 @@ public class BatalhaNaval {
                //Caso 1 é o inicio do jogo, posicionando os navios dos jogadores de maneira aleatória.
               case 2:
                   System.out.println("Selecione a linha a ser atacada.");
-                  ataque = sc.nextInt();
+                  ataqueLinha = sc.nextInt();
                   System.out.println("Selecione a coluna a ser atacada.");
-                  ataque = sc.nextInt(); 
-                  atacar(ataque, ataque, ataqueJog1, defesaJog2); //Chamada da função "atacar", que atualiza as posições ja atacadas pelo jogador.
-                  
+                  ataqueColuna = sc.nextInt(); 
+                  atacar(ataqueLinha, ataqueColuna, ataqueJog1, defesaJog2); //Chamada da função "atacar", que atualiza as posições ja atacadas pelo jogador.
+                  if (verificarVitoria (defesaJog2)) {
+                        System.out.println("FIM DE JOGO! O JOGADOR 1 VENCEU! Todos os navios adversários foram destruídos! \n");
+                        System.out.println("Tabuleiros do jogador 2: \n");
+                        imprimirTabuleiro(ataqueJog2);
+                        imprimirTabuleiro(defesaJog2);
+                        System.out.println("\nTabuleiros do jogador 1: \n");
+                        imprimirTabuleiro(ataqueJog1);
+                        imprimirTabuleiro(defesaJog1);
+                        rodada = 50;
+                    }
                   break;
                   //Caso 2 é a ação de ataque do jogador.
-              case 3:    
-                  //Criar o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
+              case 3:   
+                  imprimirTabuleiro(defesaJog2);
+                  //Cria o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
                   break;
                   
               case 4:
@@ -55,7 +66,7 @@ public class BatalhaNaval {
                   break;
                   //Caso 4 exibe o numero de rodadas restantes
               case 5:
-                  rodada = 40;
+                  rodada = 50;
                   break;
                   //Caso 5 finaliza o jogo, caso o jogador deseje.
                  
@@ -79,14 +90,25 @@ public class BatalhaNaval {
                //Caso 1 é o inicio do jogo, posicionando os navios dos jogadores de maneira aleatória.
               case 2:
                   System.out.println("Selecione a linha a ser atacada.");
-                  ataque = sc.nextInt();
+                  ataqueLinha = sc.nextInt();
                   System.out.println("Selecione a coluna a ser atacada.");
-                  ataque = sc.nextInt(); 
-                  atacar(ataque, ataque, ataqueJog2, defesaJog1); //Chamada da função "atacar", que atualiza as posições ja atacadas pelo jogador.
+                  ataqueColuna = sc.nextInt(); 
+                  atacar(ataqueLinha, ataqueColuna, ataqueJog2, defesaJog1); //Chamada da função "atacar", que atualiza as posições ja atacadas pelo jogador.
                   
+                  if (verificarVitoria (defesaJog2)) {
+                        System.out.println("FIM DE JOGO! O JOGADOR 2 VENCEU! Todos os navios adversários foram destruídos! \n");
+                        System.out.println("Tabuleiros do jogador 2: \n");
+                        imprimirTabuleiro(ataqueJog2);
+                        imprimirTabuleiro(defesaJog2);
+                        System.out.println("\nTabuleiros do jogador 1: \n");
+                        imprimirTabuleiro(ataqueJog1);
+                        imprimirTabuleiro(defesaJog1);
+                        rodada = 50;
+                    }
                   break;
                   //Caso 2 é a ação de ataque do jogador.
               case 3:    
+                  imprimirTabuleiro(defesaJog1);
                   //Criar o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
                   break;
                   
@@ -95,12 +117,22 @@ public class BatalhaNaval {
                   break;
                   //Caso 4 exibe o numero de rodadas restantes
               case 5:
-                  rodada = 40;
+                  rodada = 50;
                   break;
                   //Caso 5 finaliza o jogo, caso o jogador deseje.
                  
           }
           
+            if(rodada == 40 && verificarVitoria(defesaJog2) == false && verificarVitoria(defesaJog1) == false){
+                System.out.println("FIM DE JOGO! O jogo terminou empatado! \n");
+                System.out.println("Tabuleiros do jogador 2: \n");
+                imprimirTabuleiro(ataqueJog2);
+                imprimirTabuleiro(defesaJog2);
+                System.out.println("\nTabuleiros do jogador 1: \n");
+                imprimirTabuleiro(ataqueJog1);
+                imprimirTabuleiro(defesaJog1);
+                
+            }
           rodada++;
       }
         
@@ -289,13 +321,43 @@ public class BatalhaNaval {
         return tabuleiro;
     }
     public static char[][] atacar(int linha, int coluna, char[][]ataque, char[][] defesa){
-        int contAcerto = 0; //Contar o acerto para verificar caso de vitoria.
-        if(defesa[linha][coluna] != '~'){
+        
+        if(defesa[linha][coluna] == '#'){
         ataque[linha][coluna] = 'X';
-        contAcerto++;
+        defesa[linha][coluna] = 'X';
         }else{
             ataque[linha][coluna] = 'O';
+            defesa[linha][coluna] = 'O';
         }
+        
         return ataque;
+    }
+
+    public static boolean verificarVitoria(char[][] tabuleiroDefesa) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (tabuleiroDefesa[i][j] == '#') {
+                    // Se encontrar qualquer parte de navio não atingida, o jogo não acabou
+                    return true;
+                }
+            }
+        }
+        // Se o loop terminar e não encontrar nenhum '#', todos os navios foram afundados
+        return true;
+    }
+    
+    public static void imprimirTabuleiro(char[][] tabuleiro) {
+        System.out.print("  ");
+        for (int i = 0; i < 8; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < 8; i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < 8; j++) {
+                System.out.print(tabuleiro[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
