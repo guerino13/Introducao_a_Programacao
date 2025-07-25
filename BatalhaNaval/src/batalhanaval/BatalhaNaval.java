@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class BatalhaNaval {
 
-    public static int vez = 1;
+    public static int vez = 1; //Variavel global para controlar os turnos de cada jogador. 1 é vez do jogador 1 e 2 do jogador 2
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -13,10 +13,10 @@ public class BatalhaNaval {
         char[][] defesaJog1 = new char[8][8];
         char[][] ataqueJog2 = inicializarTabuleiro();
         char[][] defesaJog2 = new char[8][8];
-        int op = 0;
+        int op = 0; //Variavel que comanda a ação do jogador de acordo com sua escolha
         int ataqueLinha, ataqueColuna;
         int rodada = 1;
-        //1 é vez do jogador 1 e 2 do jogador 2
+        
 
 
         while (rodada <= 40) {
@@ -40,14 +40,12 @@ public class BatalhaNaval {
                     System.out.println("Posicionando seus navios...");
                     if(vez == 1){
                         posNavio(defesaJog1);
-                        //log
-                        imprimirTabuleiro(defesaJog1);
+                        //Posicionamento dos navios.
                     } else {
                         posNavio(defesaJog2);
-                        //log
-                        imprimirTabuleiro(defesaJog2);
+                        //Posicionamento dos navios.
                     }
-                    trocaVez();
+                    trocaVez();//Função responsável pela troca de turnos.
                     rodada++;
                     break;
 
@@ -72,7 +70,7 @@ public class BatalhaNaval {
                     rodada++;
                     break;
 
-                //Cria o for para exibir a matriz que representa o tabuleiro de ataque do jogador.
+                //Chama a função para exibir a matriz que representa o tabuleiro de ataque do jogador.
                 case 3:
                     imprimirTabuleiro(atacante);
                     break;
@@ -90,12 +88,14 @@ public class BatalhaNaval {
             }
             if(rodada == 40){
                 verificarEmpate(ataqueJog1, ataqueJog2);
+                //Função que va verificar o vencedor (ou não) caso nenhum jogador consiga acertar todos os navios antes do limite de rodadas. 
             }
         }
 
     }
     
     public static void verificarEmpate(char[][] ataqueJ1, char[][] ataqueJ2){
+       //Função responsável pela verificação se há ou não algum vencedor, caso o limite de rodadas seja atingido.
         int acertosJ1 = 0;
         int acertosJ2 = 0;
 
@@ -113,6 +113,7 @@ public class BatalhaNaval {
                 }
             }
         }
+        //Os acertos são contados e depois passam para a estrutura condcional para a verificação de condições.
         
         if(acertosJ1 > acertosJ2){
             System.out.println("O Jogador 1 é o vencedor com " + acertosJ1 + " acertos");
@@ -126,6 +127,7 @@ public class BatalhaNaval {
     }
 
     public static void trocaVez() {
+       //Função responsável por estar sempre atualizando o truno dos jogadores
         if (vez == 1) {
             vez = 2;
         } else {
@@ -134,6 +136,7 @@ public class BatalhaNaval {
     }
 
     public static char[][] posNavio(char[][] tabuleiro) {
+        //Função responsável pelo posicionamento dos návios no começo do jogo.
         Random rand = new Random();
 
         for (int i = 0; i < 8; i++) {
@@ -145,15 +148,18 @@ public class BatalhaNaval {
                 }
             }
         }
-
+        //Laço que impede que os jogadores fiquem reposicionando seus navios sempre, permitindo trapaças.
+        
         int navG = 1;
         int navM = 2;
         int navP = 3;
-
+        //Tamanho dos navios.
+        
         while(navG > 0){
-            int lin = rand.nextInt(6);
-            int col = rand.nextInt(6);
-            boolean horizontal = rand.nextInt(2) == 0;
+            int lin = rand.nextInt(6);//Variável que sorteia a posição da linha a ser posicionada.
+            int col = rand.nextInt(6);//Variável que sorteia a posição da coluna a ser posicionada.
+            boolean horizontal = rand.nextInt(2) == 0;//Variável que cuida do orientação do posicionamento.
+                                                      //Em caso verdadeiro, posicionamento será horizontal.
 
             if(horizontal) {
                 if (tabuleiro[lin][col] == '~' && tabuleiro[lin][col + 1] == '~' && tabuleiro[lin][col + 2] == '~'){
@@ -171,7 +177,10 @@ public class BatalhaNaval {
                 }
             }
         }
-
+        //Laço de repetição que faz o posicionamento do respectivo navio.
+        //Estrutura condicional faz a verificação da posição sorteada, 
+        //vendo se é possível o poisicionamento, evitando que exista sobreposições e criando um limite para que o navio esteja sempre dentro do array. 
+        
         while(navM > 0){
             int lin = rand.nextInt(7);
             int col = rand.nextInt(7);
@@ -191,7 +200,10 @@ public class BatalhaNaval {
                 }
             }
         }
-
+        //Laço de repetição que faz o posicionamento do respectivo navio.
+        //Estrutura condicional faz a verificação da posição sorteada, 
+        //vendo se é possível o poisicionamento, evitando que exista sobreposições e criando um limite para que o navio esteja sempre dentro do array. 
+        
         while(navP > 0){
             int lin = rand.nextInt(8);
             int col = rand.nextInt(8);
@@ -201,11 +213,16 @@ public class BatalhaNaval {
                 navP--;
             }
         }
+        //Laço de repetição que faz o posicionamento do respectivo navio.
+        //Estrutura condicional faz a verificação da posição sorteada, 
+        //vendo se é possível o poisicionamento. Neste caso, não é necessário criar limite
+        //pois o navio só ocupa uma posição dentro do array.
 
         return tabuleiro;
     }
     public static char[][] atacar(int linha, int coluna, char[][]ataque, char[][] defesa){
-
+        //Função que realiza o ataque do jogador.
+        
         if(defesa[linha][coluna] == '#'){
             ataque[linha][coluna] = 'X';
             defesa[linha][coluna] = 'X';
@@ -213,24 +230,31 @@ public class BatalhaNaval {
             ataque[linha][coluna] = 'O';
             defesa[linha][coluna] = 'O';
         }
-
+        //A matriz que representa tanto o tabuleiro de ataque do jogador atacante, 
+        //quanto o tabuleiro de defesa que será atacado será atualizada com um X indicando acerto
+        //ou O indicando um erro
         return ataque;
     }
 
     public static boolean verificarVitoria(char[][] tabuleiroDefesa) {
+       //Função responsável pela verificação de vitória em toda rodada.
+        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (tabuleiroDefesa[i][j] == '#') {
-                    // Se encontrar qualquer parte de navio não atingida, o jogo não acabou
                     return false;
                 }
             }
+            // Se encontrar qualquer parte de navio não atingida(#), o jogo não acabou
         }
         // Se o loop terminar e não encontrar nenhum '#', todos os navios foram afundados
         return true;
     }
 
     public static void imprimirTabuleiro(char[][] tabuleiro) {
+        //Função responsável apenas pela impressão do tabuleiro, sendo pedido pelo jogador
+        //ou então quando o jogo acabar.
+        
         System.out.print("  ");
         for (int i = 0; i < 8; i++) {
             System.out.print(i + " ");
